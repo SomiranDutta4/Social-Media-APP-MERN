@@ -4,25 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/contact.css">
 </head>
 <body>
-    <h1>Lets create a contact app</h1>
     <div id="main">
-        <ul>
+    <!-- <h1>Contact app</h1> -->
+    <div id="container1">
+        <ul id="list">
             <% for(let i in contacts){ %>
-                <li>Contact <%= i %>:
-                <%= contacts[i].Name %> <br>
-                <%= contacts[i].Roll_No %> <br>
-                <%= contacts[i].Branch %> <br>
+                <li id="listnum">
+                    <div class="num">Name: <%= contacts[i].Name %></div>
+                    <div class="num">Contact: <%= contacts[i].Roll_No %></div>
+                    <div class="num">Branch: <%= contacts[i].Branch %></div>
                 </li>
             <% } %>
         </ul>
     </div>
+    <div id="container2">
     <form id="forms" action='/post/contact' method="post">
         <input type="text" placeholder="Name" required name="Name">
         <input type="number" placeholder="Roll_No" required name="Roll_No">
         <input type="text" placeholder="Branch" required name="Branch">
         <button type="submit">enter</button>
     </form>
+    </div>
+    </div>
 </body>
 </html>
