@@ -1,10 +1,31 @@
+const db=require('../config/PostContactMongoose');
+const Contact = require('../models/Contact');
 const express=require('express');
-const postallowance=express();
-postallowance.set('view engine','ejs');
-// const path=require('path');
-postallowance.set('views','../views');
-// postallowance.use(express.urlencoded());
+let bodyparser=require('body-parser');
+
+// const ContactList=Contact.find({});
+// module.exports.contactLists=function(req,res){
+//     return res.render('postContact',{'contacts':ContactList});
+// }
 
 module.exports.contactlists=function(req,res){
-    return res.render('postContact');
+    Contact.find({}).then(ContactList=>{
+        console.log("fetched data");
+        return res.render('postContact',{'contacts':ContactList});
+    }).catch(err=>{
+        console.log(err);
+    })
+}
+module.exports.postContact=function(req,res){
+    console.log(req.body);
+        Contact.create({
+            Name:req.body.Name,
+            Roll_No:2345678,
+            Branch:req.body.Branch
+        }).then(createdContact=>{
+            console.log("successfully created new contact:",createdContact);
+            return res.redirect('back');
+        }).catch(error=>{
+            console.log("failed to create contact");
+        })
 }
