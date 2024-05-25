@@ -15,10 +15,6 @@ module.exports.findprofile=function(req,res){
         if(foundprofile.password==req.body.password){
             res.cookie('user',foundprofile._id);
             return res.redirect(`/user/${foundprofile.name}`);
-            // return res.render('profiles',{'user':{
-            //     name:foundprofile.name,
-            //     email:foundprofile.email
-            // }})
     }else{
         console.log('profile credentials did not match')
         return res.redirect('back');

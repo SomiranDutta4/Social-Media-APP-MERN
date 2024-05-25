@@ -2,6 +2,7 @@ const express=require('express');
 const profilerouter=express.Router();
 const db=require('../config/PostMongoose');
 const profiles=require('../models/signup');
+// var foundpf;
 const returnfunction=require('../controllers/findprofile');
 
 const searchfunction=(name)=>{
@@ -21,5 +22,5 @@ profiles.find({}).then(found=>{
         profilerouter.get(`/${searchfunction(found[i].name)}`,returnfunction.foundprofile);
     }
 })
-
+module.exports=searchfunction;
 module.exports=profilerouter;

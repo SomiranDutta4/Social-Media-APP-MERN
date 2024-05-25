@@ -19,7 +19,7 @@ module.exports.foundprofile=function(req,res){
                 i+=2;
             }
         }
-        console.log(requestedprofile);
+        console.log('USER:',requestedprofile);
     profilesdb.findOne({'_id':req.cookies.user}).then(founditt=>{
         if(founditt){
             
