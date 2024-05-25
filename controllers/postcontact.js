@@ -1,7 +1,7 @@
-const db=require('../config/PostContactMongoose');
+const db=require('../config/PostMongoose');
 const Contact = require('../models/Contact');
 const express=require('express');
-let bodyparser=require('body-parser');
+// let bodyparser=require('body-parser');
 
 // const ContactList=Contact.find({});
 // module.exports.contactLists=function(req,res){

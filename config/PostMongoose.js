@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-mongoose.connect('mongodb://localhost/socioNode_contacts');
+mongoose.connect('mongodb://localhost/socioNode_db');
 
 const db=mongoose.connection;
 db.on('err',console.error.bind(console,"error setting up database"));

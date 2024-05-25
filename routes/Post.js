@@ -1,9 +1,9 @@
 const express=require('express');
 const postroute=express.Router();
 const postcontact=require('../controllers/postcontact');
-const app=express();
-// app.use(express.json());
-app.use(express.urlencoded());
+// const app=express();
+// // app.use(express.json());
+// app.use(express.urlencoded());
 
 postroute.get('/contact',postcontact.contactlists);
 postroute.post('/contact',postcontact.postContact);
