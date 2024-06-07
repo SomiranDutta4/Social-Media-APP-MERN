@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Settings</title>
+  <link rel="stylesheet" href="/CSS/editprofile.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Account Settings</h1>
+    <div class="profile">
+      <div class="profile-info">
+        <label for="name">Name:</label>
+        <span class="details" id="name"><%= user.name%></span>
+        <button class="editbutt" onclick="editName()">Edit</button>
+        <form method="post" action="/profile/edit/name">
+        <button type="submit" class="setbutt">Set</button>
+        <input name="name" class="inputdisplay" onchange="checkvalid(0)" type="text" id="nameInput" style="display: none;">
+        </form>
+        <button class="close-btn" onclick="closeEdit('nameInput')">✕</button>
+      </div>
+      <div class="profile-info">
+        <label for="email">Email:</label>
+        <span class="details" id="email"><%= user.email%></span>
+        <button class="editbutt" onclick="editEmail()">Edit</button>
+        <form method="post" action="/profile/edit/email">
+        <button onclick="checkclicked()" type="submit" class="setbutt">Set</button>
+        <input name="email" class="inputdisplay" onchange="checkvalid(1)" type="email" id="emailInput" style="display: none;">
+        </form>
+        <button class="close-btn" onclick="closeEdit('emailInput')">✕</button>
+      </div>
+      <div class="profile-info">
+        <label for="password">Password:</label>
+        <span>**********</span>
+        <span class="details" style="display: none;"><%=user.password%></span>
+        <div style="display: inline-block;">
+        <button class="editbutt" onclick="changePassword()">Change</button></div>
+        <button class="close-btn" onclick="closeEdit('passwordInput')">✕</button>
+
+        <form method="post" action="/profile/edit/password">
+          <button type="submit" class="setbutt">Set Password</button>
+          <div class="inputdisplay" id="passwordInput" style="display: none;">
+            <input class="passwordinput" onchange="checkvalid(2)" type="password" placeholder="Enter old password">
+            <input name="password" class="passwordinput" onchange="checkvalid(2)" type="password" placeholder="Enter new password">
+            <input class="passwordinput" onchange="checkvalid(2)" type="password" placeholder="Confirm new password">
+          </div>
+          </form>
+        </div>
+    </div>
+    <form method="get" action="/profile/Account">
+    <div><button type="submit">back to profile</button></div>
+    </form>
+    <div id="alertMessage" class="alert-message"></div>
+  </div>
+  <script src="/JS/editprofile.js"></script>
+</body>
+</html>
