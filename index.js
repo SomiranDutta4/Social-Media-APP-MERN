@@ -1,4 +1,5 @@
 const express=require('express');
+const http=require('http')
 const app=express();
 const port=700;
 const cookieParser=require('cookie-parser');
@@ -6,6 +7,8 @@ const cookieParser=require('cookie-parser');
 const session=require('express-session');
 const passport =require('passport');
 const passportLocal=require('./config/passport-local');
+const flash=require('connect-flash')
+
 
 app.use(express.static('assets'));
 
@@ -18,7 +21,7 @@ app.set('view engine','ejs');
 app.set('views','./views');
 
 const MongoStore = require('connect-mongo');
-
+const errorcontroller=require('./controllers/error')
 app.use(session({
     name:'SocioNode',
     //TODO-change the secret before deployment in productio mode
@@ -37,12 +40,14 @@ app.use(session({
     })
     }))
 
+app.use(flash())
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(passport.setAuthenticatedUser)
 
 app.use('/',require('./routes/index'));
-
+app.use(errorcontroller.error404)
 
 app.listen(port,function(err){
     if(err){console.log("error firing server");
@@ -51,3 +56,10 @@ app.listen(port,function(err){
         console.log("successfully set up server with port:",port);
     }
 })
+
+//csrftoken
+//install csrf
+//use csrf
+//send it to views with name:csrfToken:req.csrfToken()
+//send the csrf on on every render with name _csrf
+//to do this,save the csrf token in locals

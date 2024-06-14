@@ -1,0 +1,255 @@
+body{min-height: 100vh; font-family:Arial, Helvetica, sans-serif;}
+.commentcontainer{flex-wrap: wrap; max-height: 45vh;overflow-y: scroll;}
+.commentcontainer.hide{display: none}
+.commentcontainer.show{display: flex;z-index: 0;}
+.postcontainer{height: max-content; background-color:#13171a; display: flex;flex-wrap: wrap; justify-content:center;}
+.commentLikediv{width: 80%}
+.actualcomment{width: 95%; margin: 0;transition: 0.5s ease-in-out;}
+.actualcomment.first{padding: 5px;margin: 3px 0 3px 0;border-radius: 5px; border: 1px solid rgba(68, 31, 31, 0.4); background-color: rgba(25, 23, 23, 0.801);color: aliceblue;}
+.actualcomment.second{padding: 5px 0 5px 0;}
+.commentsectiondivs{animation: slidedown 0.16s linear; border-radius: 5px;border: 1px solid black;margin: 5px 0 5px 0; background-color: rgba(255, 255, 255, 0.134); width: 100%;display: flex;flex-wrap: wrap;justify-content: center;}
+.mainpostportion{z-index: 100;margin: 10px 0 10px 0;width: 80%;height: max-content;}
+.postcontent{font-size: 120%; width: fit-content; padding: 0 4px 0 4px; color: #ffffffa3; border: 1px solid rgba(255, 255, 255, 0.181); border-radius: 5px; background-color: rgba(1, 1, 1, 0.306);margin: 1px;}
+.postauthor{font-size: 80%; width: fit-content; padding: 0 4px 0 4px;color: rgba(255, 255, 255, 0.646);  border: 1px solid black; border-radius: 5px;  background-color: rgba(0, 0, 0, 0.337);margin: 1px;}
+.allposts{border-top: 0.2px solid rgba(84, 78, 78, 0.375);border-top: 0.2px solid rgba(255, 255, 255, 0.172); margin-bottom: 50px; height: max-content; width: 100%;display: flex;flex-wrap: wrap;justify-content: center;}
+/* .footerforms{width:20vw;} */
+.navbar{position: sticky;width: 100%;}
+.commentLikediv {
+  background-color:  rgba(0, 0, 0, 0.337);
+  border-radius: 5px;
+  color: #ffffff90;
+margin-bottom: 20px;
+}
+h1{color: #ffffffc0;}
+.likediv {
+margin-bottom: 10px;
+}
+
+.likediv button {
+background-color: #af4c4c; /* Green */
+border: none;
+color: rgba(255, 255, 255, 0.74);
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+margin-right: 5px;
+border-radius: 5px;
+}
+
+.commentdiv input[name="comment"] {
+width: 200px; /* Adjust width as needed */
+padding: 5px;
+border: 1px solid #ccc;
+border-radius: 20px;
+}
+.commentdiv input[name='comment']:not(:placeholder-shown)+#commentbutton{
+display: inline-block;
+}
+
+.commentdiv button[type="submit"] {
+color: #008CBA; /* Blue */
+border: 1.5px solid #008CBA;
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+display:none;
+font-size: 14px;
+margin-left: 5px;
+border-radius: 5px;
+background-color: black;
+}
+.commentdiv button:hover{
+    background-color: #ffffff03;
+}
+.commentbutt {
+ /* Red */
+ background-color: #0000007a; 
+ color: rgba(255, 255, 255, 0.74);
+ border: none;
+padding: 5px 10px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 14px;
+margin-right: 5px;
+border-radius: 5px;
+}
+.commentbutt:hover{background-color: rgba(58, 52, 52, 0.438);}
+.navbar{background-color: #13171a;z-index: 101;}
+
+.detailsdiv{background-color: #00000029;color: #ffffffbf;
+    border-top: 0.1px solid rgba(255, 255, 255, 0.137);
+    border-bottom: 0.1px solid rgba(255, 255, 255, 0.137);
+    /* position: relative;
+    top: 100%; */
+    /* transform: translateY(50%); */
+}
+
+/* .optionsdiv{position: absolute;bottom: 0; display: flex; flex-direction: column;} */
+.optionsdiv {
+  display: flex;
+  justify-content:center ;
+  z-index: 100;
+position: fixed;
+bottom: 0;
+border-top: 1px solid rgba(214, 211, 211, 0.28);
+width: 100%;
+background-color:  rgba(0, 0, 0, 0.135); /* Change as needed */
+padding: 10px 0; /* Adjust padding as needed */
+}
+
+.footer {
+display: flex;
+justify-content: space-evenly;
+width: 95%;
+}
+
+.footer .footerforms {
+margin: 0 10px; /* Adjust spacing between buttons as needed */
+}
+
+.footer button {
+/* margin: 0 5px 0 5px; */
+background-color: rgba(0, 0, 0, 0.253);
+color: white;
+border: none;
+cursor: pointer;
+padding: 5px 10px; /* Adjust padding as needed */
+/* Additional styling as needed */
+}
+
+/* Adjust button styling for consistency */
+.btn {
+color: #000; /* Change button text color as needed */
+font-size: 16px; /* Change button font size as needed */
+}
+
+/* Optional: Style active or focused button differently */
+.btn:focus,
+.btn:active,
+.btn:hover {
+background-color: rgba(255, 255, 255, 0.204);
+color: #ffffff;
+outline: none; /* Remove default focus outline */
+
+}
+@media(max-width:600px){
+.footer button{
+  padding: 0 4px;
+}
+.footer .footerforms {
+margin: 0; /* Adjust spacing between buttons as needed */
+}
+}
+
+@keyframes slidedown {
+  0%{
+    transform: translateY(-200%);
+  }
+  100%{
+    transform:translateY(0);
+  }
+}
+
+
+/* Resetting default margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body styling */
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #b0afaf;
+  }
+  
+  .profile {
+    margin-bottom: 30px;
+  }
+  
+  .profile-info {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  .details {
+    margin-left: 10px;
+  }
+  
+  .editbutt,
+  .setbutt,
+  .close-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .editbutt:hover,
+  .setbutt:hover,
+  .close-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .inputdisplay {
+    margin-top: 10px;
+    padding: 5px;
+    width: calc(100% - 24px);
+  }
+  
+  .passwordinput {
+    margin-bottom: 10px;
+    width: calc(100% - 24px);
+  }
+  
+  .alert-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .editbutt,
+    .setbutt,
+    .close-btn {
+      padding: 6px 10px;
+    }
+  
+    .inputdisplay,
+    .passwordinput {
+      width: calc(100% - 20px);
+    }
+  }
+  

@@ -3,16 +3,22 @@ const mongoose=require('mongoose');
 const profile=new mongoose.Schema({
     email:{
         type:String,
-        required:true,
-        unique:true
+        // unique:true
     },
     password:{
         type:String,
-        required:true
     },
     name:{
         type:String,
-        required:true
+    },
+    uid:{
+        type:Number
+    },
+    otp:{
+        type:String
+    },
+    validTill:{
+        type:Date
     }
 },{timestamps:true})
 

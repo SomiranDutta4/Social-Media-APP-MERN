@@ -1,9 +1,11 @@
 var editing = false;
 
+const bcrypt=require('bcryptjs');
 let editbutts=document.querySelectorAll('.editbutt')
 let details=document.querySelectorAll('.details')
 let setbutt=document.querySelectorAll('.setbutt');
 let inputdisplay=document.querySelectorAll('.inputdisplay');
+let passsword=details[2].innerText
 
 setbutt.forEach(butt=>{
   butt.disabled=true;

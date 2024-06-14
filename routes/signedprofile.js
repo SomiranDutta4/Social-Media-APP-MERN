@@ -25,6 +25,10 @@ profilerouter.get('/edit',profileaccount.editprofile);
 profilerouter.post('/edit/name',profileaccount.editname);
 profilerouter.post('/edit/email',profileaccount.editemail);
 profilerouter.post('/edit/password',profileaccount.editpassword);
+profilerouter.post('/post',profileaccount.postpage)
+profilerouter.post('/createpost',profileaccount.createPost)
+profilerouter.post('/search',profileaccount.profilesearch);
+profilerouter.post('/post/comment',profileaccount.createcomment)
 
 // module.exports=searchfunction;
 module.exports=profilerouter;

@@ -3,9 +3,8 @@ const router=express.Router();
 console.log("Router loaded");
 const homeController=require('../controllers/homeController');
 const passport=require('../config/passport-local')
-// const app=express();
-// app.use(express.json());
-// app.use(express.urlencoded());
+const PostModel = require('../models/Post') // Assuming the model file is in a separate file
+
 
 router.get('/',passport.checkAuthincation,homeController.home);
 router.use('/post',passport.checkAuthincation,require('./Post'));

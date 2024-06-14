@@ -12,13 +12,15 @@ signInOutRouter.get('/signin',signinpage.signinfunction);
 //use passport as middleware to authenticate
 signInOutRouter.post('/create-session',passport.authenticate(
     'local',
-    {failureRedirect:'/user/signin'},
+    {failureFlash:('Please enter correct email and passord'),
+    // failureMessage:true,
+    failureRedirect:'/user/signin'},
 ),signinpage.createSession)
 
 signInOutRouter.get('/signup',signuppage.signupfunction);
 signInOutRouter.post('/create',signuppage.signuprequest);
 
 signInOutRouter.get('/signout',profileaccount.signout);
-
+signInOutRouter.post('/verify',signuppage.verifieduser);
 
 module.exports=signInOutRouter;
