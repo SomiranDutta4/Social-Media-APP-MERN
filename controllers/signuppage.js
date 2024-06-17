@@ -58,6 +58,7 @@ module.exports.signuprequest=function(req,res){
                 password:'NULL',
                 name:'NULL',
                 uid:0,
+                bio:'NULL',
                 otp:randomotp,
                 validTill:Date.now()+(10*60*1000)
             });
@@ -76,6 +77,7 @@ module.exports.signuprequest=function(req,res){
                 <p>Do not to share sensitive informations including verification codes to anyone</p>
                 </div>`
             }).then(done=>{
+                req.flash('success','a verification code has been sent to your registered email')
                // return res.redirect('/')
             }).catch(err=>{
                 // console.log(err)
@@ -84,13 +86,30 @@ module.exports.signuprequest=function(req,res){
                 return res.redirect('/user/signup')
         });
         password=bcrypt.hash(password,12).then(hashedpassword=>{
+            let errorMessage=req.flash('error')
+    if(errorMessage && errorMessage.length>0){
+        errorMessage=errorMessage[0]
+    }else{
+        errorMessage=null
+    }
+
+    let successMessage=req.flash('success')
+    // console.log(successMessage)
+    if(successMessage && successMessage.length>0){
+        successMessage=successMessage[0]
+    }else{
+        successMessage=null
+    }
             return res.render('verify',{'user':{
                 email:req.body.email,
                 password:hashedpassword,
                 name:req.body.firstname+' '+req.body.lastname,
                 uid:randomuid,
                 otp:randomotp
-            }})});
+            },
+            errorMessage:errorMessage,
+            successMessage:successMessage
+        })});
         }
     })}
 
@@ -118,7 +137,8 @@ module.exports.verifieduser=function(req,res){
                 email:req.body.email,
                 password:req.body.password,
                 name:req.body.name,
-                uid:req.body.uid
+                uid:req.body.uid,
+                bio:''
             }})
             // dataindb.create({
             //     email:req.body.email,
@@ -259,7 +279,7 @@ module.exports.verifieduser=function(req,res){
 
 
 function randomnum(){
-    let randomuid=Math.floor(Math.random()*100000000);
+    let randomuid=Math.floor(Math.random()*90000000)+10000000;
     dataindb.findOne({uid:randomuid}).then(found=>{
         if(found){randomnum()}
     })

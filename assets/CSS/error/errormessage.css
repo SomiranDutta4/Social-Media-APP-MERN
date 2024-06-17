@@ -5,8 +5,8 @@
     left:50vw;
     transform: translateX(-50%);
     z-index: 100;
-    display: none;
     animation: showerror 3s ease-in;
+    /* display: none; */
 }
 .user-message--error{background-color: rgb(206, 80, 80);color: white;}
 .user-message--success{background-color:rgb(79, 224, 76);}

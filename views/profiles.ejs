@@ -4,15 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User-Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/CSS/profiles/mainprofile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/CSS/profiles/editPost.css">
 </head>
 <style>
-  
+   .dropdown-toggle::after { 
+            content: none; 
+        }
+    
 </style>
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark-tertiary">
+  <div id="editcontainer"></div>
+    <nav class="navbar navbar-expand-lg bg-dark-tertiary mainprofilecontainers">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,27 +54,59 @@
           </div>
         </div>
       </nav>
-      <div class="detailsdiv">
-    <h1><%= user.name %></h1>
-    <p>Uid: <%= user.uid %></p>
+      <div class="detailsdiv mainprofilecontainers">
+    <h1 class="userdetails"><%= user.name %></h1>
+    <p class="userdetails"><%= user.uid %></p>
+    <% if(user.bio!=''){ %>
+      <p class="userdetails">Bio: <%= user.bio%></p>
+    <% } %>
     </div>
-
-    <div class="postcontainer" >
+    
+    <div class="postcontainer mainprofilecontainers">
       <% for(let i in posts){ %>
-        <div class="allposts">
+        <div id="<%= posts[i]._id %>" class="allposts">
         <div class="mainpostportion">
-        <div class="postcontent"><%= posts[i].content %></div>
-        <div class="postauthor">-<%= posts[i].author %></div>
+        <% if(posts[i].image){ %>
+          <div class="postimagediv">
+            <img class="postimages" src='/<%=posts[i].image%>'> 
+          </div>
+        <% } %>
+        <div class="postauthor">
+          <p class="postauthorparag"><%= posts[i].author %>:</p>
+         
+          <a class="nav-link dropdown-toggle optionsicon fa fa-ellipsis-v" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            
+          </a>
+          <ul class="dropdown-menu">
+            <li><button onclick="clickedEdit('<%=i%>')" class="dropdown-item" class="editbutton" id="bt-<%=i %>">Edit</button></li>
+            <li><button class="dropdown-item">archive</button></li>
+            <li><button class="dropdown-item">turn off commenting</button></li>
+          </ul>
+         
         </div>
+        <div class="postcontent"><%= posts[i].content %></div>        </div>
         <div class="commentLikediv">
           <div class="likediv">
-            <button>like</button>
-            <span>0 likes</span>
+            <% let likedByUser='likepostbtnno' %>
+
+            <% for(let liker of posts[i].likers){ %>
+             <% if(liker.uid==loggedInUser){ %>
+              <% likedByUser='likepostbtnyes' %>
+            <% } %>
+            <% } %>
+            <button onclick="clickedlike('<%=i%>')" class="fa fa-thumbs-up <%=likedByUser%> likebtns"></button>
+            
+            <span class="numoflikes"><%= posts[i].likes %></span>
+            <% if(posts[i].likes==1||posts[i].likes==0){ %>
+              <span>Like</span>
+            <% }else{ %>
+              <span>Likes</span>
+            <% } %>
           </div>
           <form method="post" action="/profile/post/comment">
           <div class="commentdiv">
-            <input style="display: none;" name="uid" value= <%= user.uid %> >
-            <input style="display: none;" name="id" value= <%= posts[i]._id%> >
+            <input style="display: none;" name="uid" value= '<%= user.uid %>' >
+            <input style="display: none;" name="id" value= '<%= posts[i]._id%>' >
             <input name="comment" placeholder="comment" style="text-align: center;" required="true">
             <button id="commentbutton" type="submit">comment</button>
           </form>
@@ -97,7 +135,7 @@
 
     
 
-    <div class="optionsdiv">
+    <div class="optionsdiv mainprofilecontainers">
       <footer class="footer">
         <form class="footerforms"  method="get" action="/">
           <button type="submit" class=" btn btn" aria-current="page" >Home</button>
@@ -123,6 +161,6 @@
 
     <script src="/JS/commentfinder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    
+    <script src="/JS/profile/editpost.js"></script>
 </body>
 </html>

@@ -8,13 +8,38 @@ const session=require('express-session');
 const passport =require('passport');
 const passportLocal=require('./config/passport-local');
 const flash=require('connect-flash')
-
+const multer = require('multer');
+const path=require('path')
 
 app.use(express.static('assets'));
 
 app.use(express.urlencoded());
 app.use(cookieParser());
+const fileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'images');
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + '-' + file.originalname.replace(/\s/g,''));
+    }
+  });
 
+  const fileFilter = (req, file, cb) => {
+    if (
+      file.mimetype === 'image/png' ||
+      file.mimetype === 'image/jpg' ||
+      file.mimetype === 'image/jpeg'
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
+
+  app.use(
+    multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
+  );
+  app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 app.set('view engine','ejs');
@@ -23,7 +48,7 @@ app.set('views','./views');
 const MongoStore = require('connect-mongo');
 const errorcontroller=require('./controllers/error')
 app.use(session({
-    name:'SocioNode',
+    name:'SocioNode-secretKey',
     //TODO-change the secret before deployment in productio mode
     secret:'randomsomethiasf',
     saveUninitialized:false,
@@ -33,8 +58,8 @@ app.use(session({
     },
     store:MongoStore.create({
         mongoUrl:'mongodb://localhost/socioNode_db',
-        autoRemove:'interval',
-        autoRemoveInterval:'100'//in minutes default
+        autoRemove:'disabled',
+        // autoRemoveInterval:'100'//in minutes default
     },function(err){
         console.log('error in storing: ',err);
     })
@@ -47,7 +72,7 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser)
 
 app.use('/',require('./routes/index'));
-app.use(errorcontroller.error404)
+// app.use(errorcontroller.error404)
 
 app.listen(port,function(err){
     if(err){console.log("error firing server");

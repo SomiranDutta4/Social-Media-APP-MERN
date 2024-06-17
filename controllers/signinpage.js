@@ -24,10 +24,6 @@ module.exports.signinfunction=async (req,res)=>{
 
     if(errorMessage.length>0){
         console.log(errorMessage[0])
-        if(errorMessage[0]=='Missing credentials'){
-            errorMessage='Invalid Password or email'
-            console.log(errorMessage)
-        }
     }else{
         errorMessage=null
     }

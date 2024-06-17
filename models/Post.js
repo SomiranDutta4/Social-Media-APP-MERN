@@ -19,6 +19,9 @@ const Likes=new mongoose.Schema({
 })
 
 const Post=new mongoose.Schema({
+    image:{
+        type:String
+    },
     content:{
         type:String,
     },

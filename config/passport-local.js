@@ -37,7 +37,6 @@ function(email,password,done){
             //req.flash('error','Entered passwored was incorrect')
             console.log('wrong password')
             return done(null,false)
-
         })
         // console.log(user);
         // return done(null,user);

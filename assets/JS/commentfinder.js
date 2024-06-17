@@ -1,11 +1,6 @@
 const commentsection=document.querySelectorAll('.commentcontainer')
 const commentbutt=document.querySelectorAll('.commentbutt')
-
-// let hideall=()=>{
-//     commentsection.forEach(section=>{
-//         section.setAttribute('class','commentcontainer hide')
-//     })
-// }
+let allpostsdivs=document.querySelectorAll('.allposts')
 let currentcomment=-1;
 
 let seecomment=()=>{
@@ -19,16 +14,6 @@ let seecomment=()=>{
         commentsection.forEach(section=>{
            section.setAttribute('class','commentcontainer hide') })
 
-
-            //let toggleclass=commentsection[butt].getAttribute('class')
-           // console.log(toggleclass) 
-            // if(toggleclass=='commentcontainer show'){
-            //     commentsection[butt].setAttribute('class','commentcontainer hide')
-            // }else{ commentsection[butt].setAttribute('class','commentcontainer show')}
-
-            // if(butt!=currentcomment){
-            //     commentsection[butt].setAttribute('class','commentcontainer hide')
-            // }
             if(currentcomment!=-1){
                 commentsection[currentcomment].setAttribute('class','commentcontainer show')
             }else{
@@ -37,19 +22,49 @@ let seecomment=()=>{
 
             console.log(currentcomment);
         })
-        // if(butt!=currentcomment){
-        //     commentsection[butt].setAttribute('class','commentcontainer hide')
-        // }
-        // for(let j=0;j<commentbutt.length;j++){
-        //     // console.log(commentsection[j].getAttribute('class'))
-        //     if(commentsection[j].getAttribute('class')=='commentcontainer show'){
-        //         numberofcomment++;
-        //     }
-        // }
-        // if(numberofcomment==0){
-        //     commentsection[currentcomment].setAttribute('class','commentcontainer hide');
-        //     currentcomment=-1;
-        // }
     }
 }
 seecomment();
+
+const likebtns=document.querySelectorAll('.likebtns')
+const numoflikes=document.querySelectorAll('.numoflikes')
+
+const clickedlike=(i)=>{
+
+    let numberoflikesNow=parseInt(numoflikes[i].innerText)
+    if(likebtns[i].classList.contains('likepostbtnno')){
+        numoflikes[i].innerText=numberoflikesNow+1;
+        likebtns[i].classList.add('likepostbtnyes')
+        likebtns[i].classList.remove('likepostbtnno')
+    }else{
+            likebtns[i].classList.remove('likepostbtnyes')
+            likebtns[i].classList.add('likepostbtnno')
+            numoflikes[i].innerText=numberoflikesNow-1;
+        }
+
+    let likestatus=likebtns[i].classList[likebtns[i].classList.length-1]
+    let postID=allpostsdivs[i].getAttribute('id')
+
+    // const csrf = btn.parentNode.querySelector('[name=_csrf]').value;
+    fetch('/profile/like/post/?id=' + postID+'&status='+likestatus,{
+        method:'DELETE',
+        headers:{
+            // 'csrf-token':csrf
+        }
+    }).then(result=>{
+        return result.json()
+    }).catch(err=>{
+        console.log(err)
+    })
+
+}
+
+
+// let numberoflikesNow=parseInt(numoflikes[i].innerText)
+// if(likebtns[i].classList.contains('likepostbtnno')){
+//     numoflikes[i].innerText=numberoflikesNow+1;
+//     likebtns[i].classList.add('likepostbtnyes')}else{
+//         likebtns[i].classList.remove('likepostbtnyes')
+//         likebtns[i].classList.add('likepostbtnno')
+//         numoflikes[i].innerText=numberoflikesNow-1;
+//     }

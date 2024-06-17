@@ -4,11 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Account Settings</title>
+  <link rel="stylesheet" href="/CSS/error/errormessage.css">
   <link rel="stylesheet" href="/CSS/editprofile.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
 </head>
 <body>
+  <% if(errorMessage) { %>
+    <div class="user-message user-message--error"><%= errorMessage %></div>
+<% } %>
+
+<% if(successMessage) { %>
+  <div class="user-message user-message--success"><%= successMessage %></div>
+<% } %>
+
+
+
   <div class="container">
     <h1>Account Settings</h1>
     <div class="profile">
@@ -16,36 +26,49 @@
         <label for="name">Name:</label>
         <span class="details" id="name"><%= user.name%></span>
         <button class="editbutt" onclick="editName()">Edit</button>
-        <form method="post" action="/profile/edit/name">
+        <form method="post" action="/profile/edit/name/user">
+          <input name="uid" style="display: none;" value=<%=user.uid%>>
         <button type="submit" class="setbutt">Set</button>
-        <input name="name" class="inputdisplay" onchange="checkvalid(0)" type="text" id="nameInput" style="display: none;">
+        <input name="name" class="inputdisplay" type="text" id="nameInput" style="display: none;">
         </form>
         <button class="close-btn" onclick="closeEdit('nameInput')">✕</button>
+      </div>
+      <div class="profile-info">
+        <label for="Bio">Bio:</label>
+        <span class="details" id="bio"><%= user.bio%></span>
+        <button class="editbutt" onclick="editBio()">Edit</button>
+        <form method="post" action="/profile/edit/bio/user">
+          <input name="uid" style="display: none;" value=<%=user.uid%>>
+        <button type="submit" class="setbutt">Set</button>
+        <input name="bio" class="inputdisplay" type="text" id="bioInput" style="display: none;">
+        </form>
+        <button class="close-btn" onclick="closeEdit('bioInput')">✕</button>
       </div>
       <div class="profile-info">
         <label for="email">Email:</label>
         <span class="details" id="email"><%= user.email%></span>
         <button class="editbutt" onclick="editEmail()">Edit</button>
-        <form method="post" action="/profile/edit/email">
+        <form method="post" action="/profile/edit/email/user">
+          <input name="uid" style="display: none;" value=<%=user.uid%>>
         <button onclick="checkclicked()" type="submit" class="setbutt">Set</button>
-        <input name="email" class="inputdisplay" onchange="checkvalid(1)" type="email" id="emailInput" style="display: none;">
+        <input name="email" class="inputdisplay" type="email" id="emailInput" style="display: none;">
         </form>
         <button class="close-btn" onclick="closeEdit('emailInput')">✕</button>
       </div>
       <div class="profile-info">
         <label for="password">Password:</label>
         <span>**********</span>
-        <span class="details" style="display: none;"><%=user.password%></span>
         <div style="display: inline-block;">
         <button class="editbutt" onclick="changePassword()">Change</button></div>
         <button class="close-btn" onclick="closeEdit('passwordInput')">✕</button>
 
-        <form method="post" action="/profile/edit/password">
+        <form method="post" action="/profile/edit/password/user">
+          <input name="uid" style="display: none;" value=<%=user.uid%>>
           <button type="submit" class="setbutt">Set Password</button>
           <div class="inputdisplay" id="passwordInput" style="display: none;">
-            <input class="passwordinput" onchange="checkvalid(2)" type="password" placeholder="Enter old password">
-            <input name="password" class="passwordinput" onchange="checkvalid(2)" type="password" placeholder="Enter new password">
-            <input class="passwordinput" onchange="checkvalid(2)" type="password" placeholder="Confirm new password">
+            <input name="oldpassword" class="passwordinput" type="password" placeholder="Enter old password">
+            <input name="newpassword" class="passwordinput" type="password" placeholder="Enter new password">
+            <input name="confirmpassword" class="passwordinput" type="password" placeholder="Confirm new password">
           </div>
           </form>
         </div>

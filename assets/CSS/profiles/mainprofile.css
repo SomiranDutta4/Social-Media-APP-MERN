@@ -2,18 +2,25 @@ body{min-height: 100vh; font-family:Arial, Helvetica, sans-serif;}
 .commentcontainer{flex-wrap: wrap; max-height: 45vh;overflow-y: scroll;}
 .commentcontainer.hide{display: none}
 .commentcontainer.show{display: flex;z-index: 0;}
-.postcontainer{height: max-content; background-color:#13171a; display: flex;flex-wrap: wrap; justify-content:center;}
+.postcontainer{flex-direction: column;align-items: center; height: max-content; background-color:#13171a; display: flex;flex-wrap: wrap; justify-content:center;}
 .commentLikediv{width: 80%}
 .actualcomment{width: 95%; margin: 0;transition: 0.5s ease-in-out;}
 .actualcomment.first{padding: 5px;margin: 3px 0 3px 0;border-radius: 5px; border: 1px solid rgba(68, 31, 31, 0.4); background-color: rgba(25, 23, 23, 0.801);color: aliceblue;}
 .actualcomment.second{padding: 5px 0 5px 0;}
 .commentsectiondivs{animation: slidedown 0.16s linear; border-radius: 5px;border: 1px solid black;margin: 5px 0 5px 0; background-color: rgba(255, 255, 255, 0.134); width: 100%;display: flex;flex-wrap: wrap;justify-content: center;}
 .mainpostportion{z-index: 100;margin: 10px 0 10px 0;width: 80%;height: max-content;}
-.postcontent{font-size: 120%; width: fit-content; padding: 0 4px 0 4px; color: #ffffffa3; border: 1px solid rgba(255, 255, 255, 0.181); border-radius: 5px; background-color: rgba(1, 1, 1, 0.306);margin: 1px;}
-.postauthor{font-size: 80%; width: fit-content; padding: 0 4px 0 4px;color: rgba(255, 255, 255, 0.646);  border: 1px solid black; border-radius: 5px;  background-color: rgba(0, 0, 0, 0.337);margin: 1px;}
+.postcontent{font-size: 120%; width: fit-content; padding: 0 4px 0 4px; color: #ffffffa3; border-radius: 5px; margin: 1px;}
+.postauthor{padding-top: 4px; font-size: 80%;color: rgba(255, 255, 255, 0.646);  border-radius: 5px;margin: 1px;
+width: 100%;
+display: flex;justify-content: space-between;}
+.optionsicon{padding-right: 5px;font-size: 120%;}
 .allposts{border-top: 0.2px solid rgba(84, 78, 78, 0.375);border-top: 0.2px solid rgba(255, 255, 255, 0.172); margin-bottom: 50px; height: max-content; width: 100%;display: flex;flex-wrap: wrap;justify-content: center;}
 /* .footerforms{width:20vw;} */
 .navbar{position: sticky;width: 100%;}
+.postauthorparag{margin: 0;
+  padding: 0 5px 0 5px;
+  background-color: rgba(1, 1, 1, 0.306);
+  display: inline-block;}
 .commentLikediv {
   background-color:  rgba(0, 0, 0, 0.337);
   border-radius: 5px;
@@ -26,9 +33,9 @@ margin-bottom: 10px;
 }
 
 .likediv button {
-background-color: #af4c4c; /* Green */
+background: transparent;
 border: none;
-color: rgba(255, 255, 255, 0.74);
+/* color: rgba(255, 255, 255, 0.74); */
 padding: 5px 10px;
 text-align: center;
 text-decoration: none;
@@ -112,7 +119,7 @@ margin: 0 10px; /* Adjust spacing between buttons as needed */
 
 .footer button {
 /* margin: 0 5px 0 5px; */
-background-color: rgba(0, 0, 0, 0.253);
+background-color: rgba(0, 0, 0, 0.69);
 color: white;
 border: none;
 cursor: pointer;
@@ -130,8 +137,8 @@ font-size: 16px; /* Change button font size as needed */
 .btn:focus,
 .btn:active,
 .btn:hover {
-background-color: rgba(255, 255, 255, 0.204);
-color: #ffffff;
+background-color: rgba(255, 255, 255, 0.414);
+color: #000000;
 outline: none; /* Remove default focus outline */
 
 }
@@ -152,7 +159,9 @@ margin: 0; /* Adjust spacing between buttons as needed */
     transform:translateY(0);
   }
 }
-
+.userdetails{
+  padding: 0 10px 0 10px;
+}
 
 /* Resetting default margins and paddings */
 * {
@@ -176,7 +185,7 @@ margin: 0; /* Adjust spacing between buttons as needed */
   }
   
   h1 {
-    text-align: center;
+    text-align: start;
     margin-bottom: 10px;
     color: #b0afaf;
   }
@@ -253,3 +262,30 @@ margin: 0; /* Adjust spacing between buttons as needed */
     }
   }
   
+  .postimages{
+    max-height: 400px;
+    max-width: 100%;
+    object-fit: cover;
+    /* max-width: 80vw; */
+  }
+  .postimagediv{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  .likepostbtnyes{
+    color: red;
+  }
+  .likepostbtnno{
+    color: white; 
+  }
+  @media(min-width:900px) {
+    .mainpostportion,.commentLikediv{width: 100%;}
+  .postimages,.allposts{max-width: 700px;}
+  }
+
+  @keyframes likepost{
+    100%{
+      color: red;
+    }
+  }

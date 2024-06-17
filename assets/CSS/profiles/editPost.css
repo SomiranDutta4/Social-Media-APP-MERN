@@ -1,0 +1,49 @@
+/* #editcontainer{position: absolute;} */
+.showEditedContainer{width: 80vw;max-width: 900px ;height: 65vh;
+top: 50%;left: 50%;
+filter: none;
+transform: translate(-50%,-50%);
+display: flex;flex-wrap: wrap;justify-content: flex-end;align-items: center;
+z-index: 1000;
+display: flex;
+align-items: start;
+}
+/* .editpostcontentinput,.editpostcontentsetbutt,.editpostcontentclosebutt{display: none;} */
+/* Edit Container */
+#editcontainer {
+    position: fixed;
+    display: none;
+}
+.editclosebutt{
+    border: none;
+    padding: 4px;
+    background:none;
+    color: white;
+}
+.editpostcontentbutt,.editpostcontentsetbutt,.editpostcontentclosebutt,.deletepostbtn{
+    padding: 2px;
+    border-radius: 3px;
+    border: none;
+    margin: 0 3px 0 3px;
+    color: white;
+}
+.editpostcontentbutt,.editpostcontentsetbutt{
+    background-color: rgba(11, 54, 83, 0.575);
+}
+.deletepostbtn{background-color: rgb(186, 63, 63);}
+.editpostcontentclosebutt{
+    background-color: rgba(73, 37, 37, 0.608);
+}
+.editpage{background-color: rgba(0, 0, 0, 0.751);
+    border-radius: 5px;
+    border: 0.3px solid rgba(255, 255, 255, 0.562);
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+width: 100%;}
+.editimagediv{width: 85%;padding: 1% 0 1% 0;}
+.editpostimage{max-width: 100%;}
+.editpostcontentdiv{width: 87%;}
+.editpostcontent{width: 100%;padding: 0 1% 0 1%;}

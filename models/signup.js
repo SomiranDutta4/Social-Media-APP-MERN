@@ -14,6 +14,9 @@ const profile=new mongoose.Schema({
     uid:{
         type:Number
     },
+    bio:{
+        type:String
+    },
     otp:{
         type:String
     },

@@ -1,15 +1,8 @@
 var editing = false;
 
-const bcrypt=require('bcryptjs');
 let editbutts=document.querySelectorAll('.editbutt')
-let details=document.querySelectorAll('.details')
 let setbutt=document.querySelectorAll('.setbutt');
 let inputdisplay=document.querySelectorAll('.inputdisplay');
-let passsword=details[2].innerText
-
-setbutt.forEach(butt=>{
-  butt.disabled=true;
-});
 
 
 let allowonly=(obj)=>{
@@ -47,6 +40,22 @@ function editName() {
   editing = true;
 }
 
+function editBio() {
+  if (editing) {
+    showAlert("Complete this process first");
+    return;
+  }
+  var bioSpan = document.getElementById("bio");
+  var bioInput = document.getElementById("bioInput");
+  bioInput.value = bioSpan.innerHTML;
+  bioSpan.style.display = "none";
+  bioInput.style.display = "inline-block";
+  bioInput.focus();
+  setbutt[1].style.display='inline-block'
+  allowonly(editbutts[1]);
+  showCloseButton("bioInput",1);
+  editing = true;
+}
 function editEmail() {
   if (editing) {
     showAlert("Complete this process first");
@@ -60,9 +69,9 @@ function editEmail() {
   emailSpan.style.display = "none";
   emailInput.style.display = "inline-block";
   emailInput.focus();
-  setbutt[1].style.display='inline-block'
-  allowonly(editbutts[1]);
-  showCloseButton("emailInput",1);
+  setbutt[2].style.display='inline-block'
+  allowonly(editbutts[2]);
+  showCloseButton("emailInput",2);
   editing = true;
 }
 
@@ -79,9 +88,9 @@ function changePassword() {
   } else {
     passwordFields.style.display = "none";
   }
-  showCloseButton("passwordInput",2);
-  allowonly(editbutts[2]);
-  setbutt[2].style.display='inline-block'
+  showCloseButton("passwordInput",3);
+  allowonly(editbutts[3]);
+  setbutt[3].style.display='inline-block'
   editing = true;
 }
 
@@ -123,26 +132,26 @@ function showAlert(message) {
   }, 3000);
 }
 
-function checkvalid(num){
-  if(inputdisplay[num].value!=details[num].innerText){
-    setbutt[num].disabled=false;
+// function checkvalid(num){
+//   if(inputdisplay[num].value!=details[num].innerText){
+//     setbutt[num].disabled=false;
 
-  }else{setbutt[num].disabled=true
-  }
+//   }else{setbutt[num].disabled=true
+//   }
 
-  if(num==2){
-    let passworddisplay=document.querySelectorAll('.passwordinput');
+//   if(num==2){
+//     let passworddisplay=document.querySelectorAll('.passwordinput');
 
-    if(passworddisplay[0].value==details[2].innerText &&  passworddisplay[1].value !='' && passworddisplay[1].value==passworddisplay[2].value && passworddisplay[1].value!=passworddisplay[0].value){
-      setbutt[num].disabled=false;
-      console.log(details[2].innerText)
-    }else{
-      console.log(passworddisplay[0].value,passworddisplay[1].value,passworddisplay[2].value,details[2].innerText,)
-      setbutt[num].disabled=true;
-    }
-  }
+//     if(passworddisplay[0].value==details[2].innerText &&  passworddisplay[1].value !='' && passworddisplay[1].value==passworddisplay[2].value && passworddisplay[1].value!=passworddisplay[0].value){
+//       setbutt[num].disabled=false;
+//       console.log(details[2].innerText)
+//     }else{
+//       console.log(passworddisplay[0].value,passworddisplay[1].value,passworddisplay[2].value,details[2].innerText,)
+//       setbutt[num].disabled=true;
+//     }
+//   }
 
-}
+// }
 
 // setbutt.forEach(butt=>{
 //   butt.addEventListener('click',()=>{
