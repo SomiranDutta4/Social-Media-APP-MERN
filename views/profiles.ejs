@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/CSS/profiles/mainprofile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/CSS/profiles/editPost.css">
+    <link rel="stylesheet" href="/CSS/profiles/messageStyle.css">
 </head>
 <style>
    .dropdown-toggle::after { 
@@ -36,27 +37,18 @@
                 <button type="submit" class="nav-link" href="#">Log out</button>
                 </form>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                  <a href="/profile/edit" type="submit" class="nav-link">Edit Profile</a>
-              </li>
+             
+              <form method="get" action="/profile/edit">
+                <button type="submit" class="nav-link" href="#">Edit Profile</button>
+              </form>
+              
             </ul>
           </div>
         </div>
       </nav>
       <div class="detailsdiv mainprofilecontainers">
-    <h1 class="userdetails"><%= user.name %></h1>
-    <p class="userdetails"><%= user.uid %></p>
+    <h1 id="nameDiv" class="userdetails"><%= user.name %></h1>
+    <p id="uiddiv" class="userdetails"><%= user.uid %></p>
     <% if(user.bio!=''){ %>
       <p class="userdetails">Bio: <%= user.bio%></p>
     <% } %>
@@ -74,7 +66,7 @@
         <div class="postauthor">
           <p class="postauthorparag"><%= posts[i].author %>:</p>
          
-          <a class="nav-link dropdown-toggle optionsicon fa fa-ellipsis-v" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="dropdown-toggle optionsicon fa fa-ellipsis-v" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             
           </a>
           <ul class="dropdown-menu">
@@ -133,10 +125,15 @@
      <% } %>
     </div>
 
+
+    <div class="messagediv hide slide">
+
+    </div>
+
     
 
-    <div class="optionsdiv mainprofilecontainers">
-      <footer class="footer">
+    <div class="optionsdiv profilePage messagehide mainprofilecontainers">
+      <footer class="footer profilePage">
         <form class="footerforms"  method="get" action="/">
           <button type="submit" class=" btn btn" aria-current="page" >Home</button>
           </form>
@@ -148,17 +145,17 @@
           <input style="display: none;" name="uid" value=<%= user.uid %>>
         <button type="submit" class=" btn " aria-current="page">+</button>
         </form>
-        <form>
-          <button type="submit" class=" btn " aria-current="page">Messages</button>
-        </form>
+        <!-- <form class="footerforms" > -->
+          <button onclick="findAll()" class=" btn " aria-current="page">Messages</button>
+        <!-- </form> -->
        
         
-        <form>
+        <form class="footerforms" >
           <button type="submit" class=" btn " aria-current="page">Notifications</button>
         </form>
       </footer>
     </div>
-
+    <script src="/JS/profile/messages.js"></script>
     <script src="/JS/commentfinder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="/JS/profile/editpost.js"></script>

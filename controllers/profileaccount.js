@@ -330,18 +330,23 @@ module.exports.createcomment=function(req,res){
     }
 
     posts.findById(req.body.id).then(foundpost=>{
-        comment=foundpost.comments
-        comment++;
-        commenters=foundpost.Commenters
-        commenters.push(newcomment);
+        foundpost.Commenters.push(newcomment)
+        foundpost.comments+=1;
+        return foundpost.save()
+        // comment=foundpost.comments
+        // comment++;
+        // commenters=foundpost.Commenters
+        // commenters.push(newcomment);
         //console.log(comment,commenters)
     }).then(done=>{
-    posts.updateOne({_id:req.body.id},{$set:{comments:comment,Commenters:commenters}}).then(done=>{
-        return res.redirect('back');
-    }).catch(err=>{
-        console.log('error commenting')
-        return res.redirect('back');
-    })  })
+    // posts.updateOne({_id:req.body.id},{$set:{comments:comment,Commenters:commenters}}).then(done=>{
+    //     return res.redirect('back');
+    // }).catch(err=>{
+    //     console.log('error commenting')
+    //     return res.redirect('back');
+    // })  
+    console.log('done commenting')
+})
 }
 module.exports.like=function(req,res){
     posts.findOne({_id:req.query.id}).then(foundpost=>{
@@ -369,12 +374,18 @@ module.exports.like=function(req,res){
             likersarray=likersarray.filter(obj=>
                 obj.uid!=req.user.uid)
         }
-        posts.updateOne({_id:req.query.id},{$set:{likes:likes,likers:likersarray}}).then(done=>{
-            res.status(200).json({ message: 'Success!'});
-            // console.log('')
-        }).catch(err=>{
-            res.status(500).json({ message: 'Deleting product failed.'})
-    })
+        foundpost.likes=likes;
+        foundpost.likers=likersarray;
+        foundpost.save()
+        res.status(200).json({ message: 'Success!'});
+        return
+        
+    //     posts.updateOne({_id:req.query.id},{$set:{likes:likes,likers:likersarray}}).then(done=>{
+    //         
+    //         // console.log('')
+    //     }).catch(err=>{
+    //         res.status(500).json({ message: 'Deleting product failed.'})
+    // })
     
     }).catch(err=>{
         console.log('posts not found',err)

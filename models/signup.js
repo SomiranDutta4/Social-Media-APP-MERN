@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-const profile=new mongoose.Schema({
+const profileSchema=new mongoose.Schema({
     email:{
         type:String,
         // unique:true
@@ -14,6 +14,9 @@ const profile=new mongoose.Schema({
     uid:{
         type:Number
     },
+    isOnline:{
+        type:Boolean
+    },
     bio:{
         type:String
     },
@@ -25,5 +28,5 @@ const profile=new mongoose.Schema({
     }
 },{timestamps:true})
 
-const createdprofile=mongoose.model('profile',profile);
-module.exports=createdprofile;
+const profile=mongoose.model('profile',profileSchema);
+module.exports=profile;

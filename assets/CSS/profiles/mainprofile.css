@@ -16,7 +16,7 @@ display: flex;justify-content: space-between;}
 .optionsicon{padding-right: 5px;font-size: 120%;}
 .allposts{border-top: 0.2px solid rgba(84, 78, 78, 0.375);border-top: 0.2px solid rgba(255, 255, 255, 0.172); margin-bottom: 50px; height: max-content; width: 100%;display: flex;flex-wrap: wrap;justify-content: center;}
 /* .footerforms{width:20vw;} */
-.navbar{position: sticky;width: 100%;}
+.navbar{position: sticky;width: 100%;top: 0;}
 .postauthorparag{margin: 0;
   padding: 0 5px 0 5px;
   background-color: rgba(1, 1, 1, 0.306);
@@ -83,19 +83,36 @@ font-size: 14px;
 margin-right: 5px;
 border-radius: 5px;
 }
-.commentbutt:hover{background-color: rgba(58, 52, 52, 0.438);}
-.navbar{background-color: #13171a;z-index: 101;}
+@media(max-width:992px){
+  button.nav-link{
+    padding: 0 3px 0 3px;
+    border: 0.05px solid white;
+    margin: 2px 0 2px 0;
+    background-color: rgb(13 15 17);
+    border-radius: 5px;
+  }
+}
 
-.detailsdiv{background-color: #00000029;color: #ffffffbf;
+.commentbutt:hover{background-color: rgba(58, 52, 52, 0.438);}
+.navbar{
+  height: 7vh;
+  background-color: #13171a;z-index: 201;}
+
+.detailsdiv{background-color: #13171a;color: #ffffffbf;
+  z-index: 200;
     border-top: 0.1px solid rgba(255, 255, 255, 0.137);
     border-bottom: 0.1px solid rgba(255, 255, 255, 0.137);
-    /* position: relative;
-    top: 100%; */
-    /* transform: translateY(50%); */
+    position: sticky;
+    top:7vh;
 }
 
 /* .optionsdiv{position: absolute;bottom: 0; display: flex; flex-direction: column;} */
+@media(max-width:1100px){
+  .userdetails{
+    padding: 0 10px 0 10px;
+  }
 .optionsdiv {
+  height: 6vh;
   display: flex;
   justify-content:center ;
   z-index: 100;
@@ -103,9 +120,43 @@ position: fixed;
 bottom: 0;
 border-top: 1px solid rgba(214, 211, 211, 0.28);
 width: 100%;
-background-color:  rgba(0, 0, 0, 0.135); /* Change as needed */
+background-color:  rgba(13 15 17); /* Change as needed */
 padding: 10px 0; /* Adjust padding as needed */
-}
+}}
+@media(min-width:1100px){
+  .optionsdiv.Homepage{
+    height: 6vh;
+    display: flex;
+    justify-content:center ;
+    z-index: 100;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid rgba(214, 211, 211, 0.28);
+  width: 100%;
+  background-color:  rgba(13 15 17); /* Change as needed */
+  padding: 10px 0; 
+  }
+  .footer.profilePage{
+    flex-direction: column;
+    height: 95%;
+    width: 100%;
+  }
+  .userdetails{
+    padding: 0 10px 0 17vw;
+  }
+  .optionsdiv.profilePage{
+    border-right: 1px solid rgba(214, 211, 211, 0.28);
+    display: flex;
+    flex-direction: column;
+    justify-content:center ;
+    z-index: 100;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 16%;
+  background-color:  rgba(13 15 17); /* Change as needed */
+  padding: 10px 0; /* Adjust padding as needed */
+  }}
 
 .footer {
 display: flex;
@@ -159,9 +210,7 @@ margin: 0; /* Adjust spacing between buttons as needed */
     transform:translateY(0);
   }
 }
-.userdetails{
-  padding: 0 10px 0 10px;
-}
+
 
 /* Resetting default margins and paddings */
 * {
@@ -289,3 +338,52 @@ margin: 0; /* Adjust spacing between buttons as needed */
       color: red;
     }
   }
+  .allChats{
+    background-color: black;
+    animation: slide 0.3s ease-out;
+  }
+  .particularChat{
+    background-color: black;
+    animation: slide 0.3s ease-out;
+  }
+  .messagediv{
+    position: fixed;
+    background: transparent;
+    z-index: 1000;
+  }
+  .messagediv.hide{
+    display: none;
+    height:0;
+    width: 0;
+  }
+  @media(max-width:1100px){
+    .messagediv.show{
+      right: 0;
+      bottom:6vh;
+      width: 100%;
+      height: 94vh;
+    } }
+  @media(min-width:1100px){
+    .optionsdiv.profilePage.messagehide{
+      height: 93vh;
+      z-index: 1001;
+    }
+    .optionsdiv.profilePage.messageshow{
+      z-index: 290;
+      height: 100vh;
+    }
+    .messagediv.show{
+      right: 0;
+      bottom:0;
+      height: 93vh;
+      width: 84%;
+    }  }
+
+@keyframes slide{
+  0%{
+    transform: translateX(100%);
+  }
+  100%{
+    transform: translate(0);
+  }
+}

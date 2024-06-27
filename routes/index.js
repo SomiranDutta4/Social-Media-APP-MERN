@@ -11,7 +11,7 @@ router.use('/post',passport.checkAuthincation,require('./Post'));
 router.use('/user',require('./sign_in_up'));
 // router.use('/profile',require('./singup'));
 router.use('/profile',passport.checkAuthincation,require('./signedprofile'));
-
+router.use('/message',require('./messageRoute'))
 
 //for any further routes,this portion will be used
 

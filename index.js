@@ -10,9 +10,10 @@ const passportLocal=require('./config/passport-local');
 const flash=require('connect-flash')
 const multer = require('multer');
 const path=require('path')
-
+const bodyParser=require('body-parser')
 app.use(express.static('assets'));
 
+app.use(express.json())
 app.use(express.urlencoded());
 app.use(cookieParser());
 const fileStorage = multer.diskStorage({
@@ -46,7 +47,7 @@ app.set('view engine','ejs');
 app.set('views','./views');
 
 const MongoStore = require('connect-mongo');
-const errorcontroller=require('./controllers/error')
+const errorcontroller=require('./controllers/error');
 app.use(session({
     name:'SocioNode-secretKey',
     //TODO-change the secret before deployment in productio mode
@@ -54,7 +55,7 @@ app.use(session({
     saveUninitialized:false,
     resave:false,
     cookie:{
-        maxAge:(1000*60*100)
+        maxAge:(1000*60*200)
     },
     store:MongoStore.create({
         mongoUrl:'mongodb://localhost/socioNode_db',
@@ -72,7 +73,7 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser)
 
 app.use('/',require('./routes/index'));
-// app.use(errorcontroller.error404)
+app.use(errorcontroller.error404)
 
 app.listen(port,function(err){
     if(err){console.log("error firing server");
