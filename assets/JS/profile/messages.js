@@ -58,16 +58,21 @@ let findAll=()=>{
     }).then(success=>{
       
         let searchdiv=document.createElement('div')
-        let searchmsgBar=document.createElement('input')
-        searchmsgBar.placeholder='search chat'
-        searchmsgBar.setAttribute('class',"searchmsgBar")
-        let searchbtn=document.createElement('button')
-        searchbtn.innerText='Search'
-        searchbtn.setAttribute('class','searchbtn')
-        searchdiv.appendChild(searchmsgBar)
-        searchdiv.appendChild(searchbtn)
+        let newHTML=`
+            <input class="searchmsgBar" placeholder="search chat">
+            <button class="searchbtn">Search</button>
+        `
+        searchdiv.innerHTML=newHTML
+        // let searchmsgBar=document.createElement('input')
+        // searchmsgBar.placeholder='search chat'
+        // searchmsgBar.setAttribute('class',"searchmsgBar")
+        // let searchbtn=document.createElement('button')
+        // searchbtn.innerText='Search'
+        // searchbtn.setAttribute('class','searchbtn')
+        // searchdiv.appendChild(searchmsgBar)
+        // searchdiv.appendChild(searchbtn)
         allChats.appendChild(searchdiv)
-        allChats.appendChild(searchdiv)
+
         // console.log("success",success.foundAllChats)
 
         success.foundAllChats.forEach(element => {
@@ -142,24 +147,30 @@ let findOne=(uid)=>{
 
         let headingDiv=document.createElement('div')
         headingDiv.setAttribute('class','headingDiv')
-        let pfpDiv=document.createElement('div')
-        pfpDiv.setAttribute('class','pfpDiv')
-        let detailsDiv=document.createElement('div')
-        detailsDiv.setAttribute('class','detailsDiv')
-        let nameEle=document.createElement('p')
-        nameEle.setAttribute('class','nameEle')
-        let uidDivv=document.createElement('p')
-        uidDivv.setAttribute('class','uidDivv')
+        let newHtMl=`
+        <div class="pfpDiv"></div>
+        <div class="detailsDiv">
+            <p class="nameEle">${fetchedChat.ToName}</p>
+            <p class="uidDivv">${fetchedChat.ToUid}</p>
+        </div>`
+        headingDiv.innerHTML=newHtMl
+        // let pfpDiv=document.createElement('div')
+        // pfpDiv.setAttribute('class','pfpDiv')
+        // let detailsDiv=document.createElement('div')
+        // detailsDiv.setAttribute('class','detailsDiv')
+        // let nameEle=document.createElement('p')
+        // nameEle.setAttribute('class','nameEle')
+        // let uidDivv=document.createElement('p')
+        // uidDivv.setAttribute('class','uidDivv')
 
 
-        detailsDiv.appendChild(nameEle)
-        detailsDiv.appendChild(uidDivv)
-        headingDiv.appendChild(pfpDiv)
-        headingDiv.appendChild(detailsDiv)
+        // detailsDiv.appendChild(nameEle)
+        // detailsDiv.appendChild(uidDivv)
+        // headingDiv.appendChild(pfpDiv)
+        // headingDiv.appendChild(detailsDiv)
         particularChat.appendChild(headingDiv)
-        // messagediv.appendChild(headingDiv)
-        nameEle.innerText=fetchedChat.ToName
-        uidDivv.innerText=fetchedChat.ToUid
+        // nameEle.innerText=fetchedChat.ToName
+        // uidDivv.innerText=fetchedChat.ToUid
       
         let ChatDiv=document.createElement('div')
         ChatDiv.setAttribute('class','ChatDiv')
@@ -168,19 +179,28 @@ let findOne=(uid)=>{
 
             let indmessageDiv=document.createElement('div')
             indmessageDiv.setAttribute('class','indmessageDiv')
-            let indmessage=document.createElement('div')
-            let indTime=document.createElement('div')
-            indmessage.innerText=message.body
-            indTime.innerText=message.time
-            indmessage.setAttribute('class','indmessage')
-            indTime.setAttribute('class','indTime')
-            const indcontainer=document.createElement('div')
-            indcontainer.setAttribute('class','indcontainer')
-            indmessageDiv.appendChild(indcontainer)
-            indcontainer.appendChild(indmessage)
-            indcontainer.appendChild(indTime)
+            // let indmessage=document.createElement('div')
 
+            let HtmltoAdd=`
+            <div class="indcontainer">
+        <div class="indmessage">${message.body}</div>
+        <div class="indTime">${message.time}</div>
+    </div>`
+            // let indTime=document.createElement('div')
+            // indmessage.innerText=message.body
+            // indTime.innerText=message.time
+            // indmessage.setAttribute('class','indmessage')
+            // indTime.setAttribute('class','indTime')
+            // const indcontainer=document.createElement('div')
+            // indcontainer.setAttribute('class','indcontainer')
+            // indmessageDiv.appendChild(indcontainer)
+            // indcontainer.appendChild(indmessage)
+            // indcontainer.appendChild(indTime)
+            indmessageDiv.innerHTML=HtmltoAdd
             ChatDiv.appendChild(indmessageDiv)
+            let indcontainer=indmessageDiv.querySelector('.indcontainer')
+            let indTime=indmessageDiv.querySelector('.indTime')
+
            
             if(message.sender==Myname){
                 indcontainer.classList.add('byMe')
@@ -200,17 +220,23 @@ let findOne=(uid)=>{
 
         let inputDiv=document.createElement('div')
         inputDiv.setAttribute('class','inputDiv')
-        let messageinput=document.createElement('input')
-        messageinput.setAttribute('class','messageinput')
-        messageinput.placeholder='Type message'
-        let messagesend=document.createElement('button')
-        messagesend.setAttribute('class','messagesend')
-        messagesend.innerText='SEND'
-        inputDiv.appendChild(messageinput)
-        inputDiv.appendChild(messagesend)
-
+        let newHtmltoAdd=`
+        <input class="messageinput" placeholder="Type message">
+        <button class="messagesend">SEND</button>`
+        // let messageinput=document.createElement('input')
+        // messageinput.setAttribute('class','messageinput')
+        // messageinput.placeholder='Type message'
+        // let messagesend=document.createElement('button')
+        // messagesend.setAttribute('class','messagesend')
+        // messagesend.innerText='SEND'
+        // inputDiv.appendChild(messageinput)
+        // inputDiv.appendChild(messagesend)
+        inputDiv.innerHTML=newHtmltoAdd
         particularChat.appendChild(inputDiv)
         // messagediv.appendChild(inputDiv)
+        let messagesend=inputDiv.querySelector('.messagesend')
+        let nameEle=particularChat.querySelector('.nameEle')
+        let uidDivv=particularChat.querySelector('.uidDivv')
 
         messagesend.addEventListener('click',()=>{
             sendMessage(messageinput.value,uidDivv.innerText,nameEle.innerText)
@@ -246,17 +272,26 @@ const sendMessage=(messagedata,uid,name)=>{
         let ChatDiv=document.querySelector('.ChatDiv')
         let indmessageDiv=document.createElement('div')
             indmessageDiv.setAttribute('class','indmessageDiv')
-            let indmessage=document.createElement('div')
-            let indTime=document.createElement('div')
-            indmessage.innerText=messagedata
-            indTime.innerText=Date().split(' ')[4]+' '+Date().split(' ')[1]+' '+Date().split(' ')[2]+' '+Date().split(' ')[3]
-            indmessage.setAttribute('class','indmessage')
-            indTime.setAttribute('class','indTime')
-            const indcontainer=document.createElement('div')
-            indcontainer.setAttribute('class','indcontainer')
-            indmessageDiv.appendChild(indcontainer)
-            indcontainer.appendChild(indmessage)
-            indcontainer.appendChild(indTime)
+        let newHtml=`
+        <div class="indmessageDiv">
+        <div class="indcontainer">
+            <div class="indmessage">${messagedata}</div>
+            <div class="indTime">${Date().split(' ')[4]+' '+Date().split(' ')[1]+' '+Date().split(' ')[2]+' '+Date().split(' ')[3]}</div>
+        </div>
+    </div>
+        `
+        indmessageDiv.innerHTML=newHtml
+            // let indmessage=document.createElement('div')
+            // let indTime=document.createElement('div')
+            // indmessage.innerText=messagedata
+            // indTime.innerText=Date().split(' ')[4]+' '+Date().split(' ')[1]+' '+Date().split(' ')[2]+' '+Date().split(' ')[3]
+            // indmessage.setAttribute('class','indmessage')
+            // indTime.setAttribute('class','indTime')
+            // const indcontainer=document.createElement('div')
+            // indcontainer.setAttribute('class','indcontainer')
+            // indmessageDiv.appendChild(indcontainer)
+            // indcontainer.appendChild(indmessage)
+            // indcontainer.appendChild(indTime)
 
             ChatDiv.appendChild(indmessageDiv)
            
@@ -314,26 +349,36 @@ messageclosebtn3.addEventListener('click',()=>{
             searchDisplay.appendChild(messageclosebtn3)
             searchDisplay.setAttribute('class','searchDisplay show')
             found.searchedOnes.forEach(pf=>{
+
+
                 let indpf=document.createElement('div')
                 indpf.setAttribute('class','indpf')
-                let indpfpf=document.createElement('div')
-                indpfpf.setAttribute('class','indpfpf')
-                let inddetailsdiv=document.createElement('div')
-                inddetailsdiv .setAttribute('class','inddetailsdiv')
 
-                let indName=document.createElement('p')
-                indName.setAttribute('class','indName')
-                indName.innerText=pf.name
-                let indUid=document.createElement('p')
-                indUid.setAttribute('class','indUid')
-                indUid.innerText=pf.uid
+                let newHtml=`
+                <div class="indpfpf"></div>
+                <div class="inddetailsdiv">
+                    <p class="indName">${pf.name}</p>
+                    <p class="indUid">${pf.uid}</p>
+                </div>
+                `
+                // let indpfpf=document.createElement('div')
+                // indpfpf.setAttribute('class','indpfpf')
+                // let inddetailsdiv=document.createElement('div')
+                // inddetailsdiv .setAttribute('class','inddetailsdiv')
 
-                inddetailsdiv.appendChild(indName)
-                inddetailsdiv.appendChild(indUid)
+                // let indName=document.createElement('p')
+                // indName.setAttribute('class','indName')
+                // indName.innerText=pf.name
+                // let indUid=document.createElement('p')
+                // indUid.setAttribute('class','indUid')
+                // indUid.innerText=pf.uid
 
-                indpf.appendChild(indpfpf)
-                indpf.appendChild(inddetailsdiv)
+                // inddetailsdiv.appendChild(indName)
+                // inddetailsdiv.appendChild(indUid)
 
+                // indpf.appendChild(indpfpf)
+                // indpf.appendChild(inddetailsdiv)
+                indpf.innerHTML=newHtml
                 searchDisplay.appendChild(indpf)
 
 
@@ -355,27 +400,38 @@ messageclosebtn3.addEventListener('click',()=>{
 let appendNew=(latestMsg,time,userarray)=>{
     let indChat=document.createElement('div')
     indChat.setAttribute('class','indChat')
+    let functionhtml=`
+        <p class="nameEle"></p>
+        <p class="uidEle"></p>
+        <p class="chatEle">
+            <p class="timeEle">${time}</p>
+            ${latestMsg}
+        </p>
+    `
     let pfpEle=document.createElement('div')
     pfpEle.setAttribute('class','pfpEle')
     let textDiv=document.createElement('div')
     textDiv.setAttribute('class','textDiv')
-    let nameEle=document.createElement('p')
-    nameEle.setAttribute('class','nameEle')
-    let uidEle=document.createElement('p')
-    uidEle.setAttribute('class','uidEle')
-    let chatEle=document.createElement('p')
-    chatEle.setAttribute('class','chatEle')
-    let timeEle=document.createElement('p')
-    timeEle.setAttribute('class','timeEle')
-    textDiv.appendChild(nameEle)
-    textDiv.appendChild(uidEle)
-    textDiv.appendChild(chatEle)
+    textDiv.innerHTML=functionhtml
+    // let nameEle=document.createElement('p')
+    // nameEle.setAttribute('class','nameEle')
+    // let uidEle=document.createElement('p')
+    // uidEle.setAttribute('class','uidEle')
+    // let chatEle=document.createElement('p')
+    // chatEle.setAttribute('class','chatEle')
+    // let timeEle=document.createElement('p')
+    // timeEle.setAttribute('class','timeEle')
+    // textDiv.appendChild(nameEle)
+    // textDiv.appendChild(uidEle)
+    // textDiv.appendChild(chatEle)
     indChat.appendChild(pfpEle)
     indChat.appendChild(textDiv)
     allChats.appendChild(indChat)
-    chatEle.appendChild(timeEle)
-    timeEle.innerText=time
-    chatEle.innerText=latestMsg
+    let uidEle=indChat.querySelector('.uidEle')
+    let nameEle=indChat.querySelector('.nameEle')
+    // chatEle.appendChild(timeEle)
+    // timeEle.innerText=time
+    // chatEle.innerText=latestMsg
 
     if(userarray.length==2){
         if(userarray[0].uid==uiddiv){

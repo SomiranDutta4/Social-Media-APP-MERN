@@ -9,11 +9,26 @@
     <link href="/CSS/error/errormessage.css" rel="stylesheet">
     <link rel="stylesheet" href="/CSS/profiles/messageStyle.css">
 </head>
+<style>
+  body{
+    background-color:#13171a;
+  }
+  .navbar{
+    border-bottom: 0.1px solid rgba(255, 255, 255, 0.137);
+  }
+  #navbarSupportedContent{
+    border-radius: 5px;
+    background-color: rgba(1, 1, 1, 0.777);
+  }
+  .btn{
+    color: white;
+  }
+</style>
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-dark-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">SocioNode</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,9 +53,7 @@
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-              </li>
+             
             </ul>
             <form method="post" action="/profile/search" class="d-flex">
               <input name="uid" class="form-control me-2" placeholder="Search" aria-label="Search">

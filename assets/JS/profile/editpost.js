@@ -17,10 +17,14 @@ const bluroff=()=>{
     })
 }
 
-const clickedEdit=(i)=>{
+const clickedEdit=(i,id)=>{
     var editingcontent=false;
-    let posttext=document.querySelectorAll('.postcontent')[i].innerText
-    let images=document.querySelectorAll('.postimages')
+    let posttext=document.querySelectorAll(".postcontent")
+    posttext=posttext.querySelector(`#${id}`)
+    // let posttext=document.querySelector(`[class="postcontent"],[id="${id}"]`).innerText
+    console.log(posttext)
+    // posttext=posttext
+    let images=document.getElementById(`${id}`).firstElementChild.firstElementChild.firstElementChild
     let postimg;
     if(images[i]!=undefined){
         postimg=images[i].src;

@@ -29,7 +29,7 @@ profilerouter.post('/post',profileaccount.postpage)
 profilerouter.get('/post',profileaccount.postpage)
 profilerouter.post('/createpost',profileaccount.createPost)
 profilerouter.post('/search',profileaccount.profilesearch);
-profilerouter.post('/post/comment',profileaccount.createcomment)
+profilerouter.post('/post/comment/',profileaccount.createcomment)
 profilerouter.post('/edit/bio/user',profileaccount.editbio)
 profilerouter.post('/change/password/verify',profileaccount.verifiedPassEdit)
 profilerouter.post('/edit/content/',profileaccount.editpostcontent)

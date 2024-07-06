@@ -2,9 +2,13 @@ const commentsection=document.querySelectorAll('.commentcontainer')
 const commentbutt=document.querySelectorAll('.commentbutt')
 let allpostsdivs=document.querySelectorAll('.allposts')
 let currentcomment=-1;
+const uidOfUser=document.getElementById('uiddiv').innerText
 
 let seecomment=()=>{
     // let numberofcomment=0;
+
+    
+
     for(let butt=0;butt<commentbutt.length;butt++){
         commentbutt[butt].addEventListener('click',()=>{
             if(currentcomment!=butt){
@@ -59,7 +63,49 @@ const clickedlike=(i)=>{
 
 }
 
+let postComment=(post_id)=>{
+    let inputElement = document.querySelector(`input[post_id='${post_id}']`);
+    let parent=document.getElementById(`${post_id}`)
+    let postComments=parent.lastElementChild.lastElementChild
+    
+    fetch(`/profile/post/comment/?uid=${uidOfUser}`,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json' // Assuming you are sending JSON data
+        },
+        body:JSON.stringify({
+            id:post_id,
+            comment:inputElement.value
+        })})
+        .then(result=>{
+            return result.json()
+    }).then(returned=>{
+        let commentsectiondivs=document.createElement('div')
+        commentsectiondivs.setAttribute('class','commentsectiondivs')
+        let newComment=`
+        <p class="actualcomment second">
+                ${returned.author}:
+              </p>
+              <p class="actualcomment first">
+                ${returned.body}
+              </p>
+              `
+              commentsectiondivs.innerHTML=newComment
+              postComments.prepend(commentsectiondivs)
+        console.log(returned)
+        inputElement.value=''
+    }).catch(err=>{
+        console.log(err)
+    })
+}
+let timeCreated=document.querySelectorAll('.timeCreated')
+timeCreated.forEach(div=>{
 
+    var postTime=div.getAttribute('id')
+    postTime=postTime.split(' ')
+    postTime=postTime[1]+' '+postTime[2]+' '+postTime[3]
+    div.innerText=postTime
+})
 // let numberoflikesNow=parseInt(numoflikes[i].innerText)
 // if(likebtns[i].classList.contains('likepostbtnno')){
 //     numoflikes[i].innerText=numberoflikesNow+1;

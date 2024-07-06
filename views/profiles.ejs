@@ -21,7 +21,7 @@
   <div id="editcontainer"></div>
     <nav class="navbar navbar-expand-lg bg-dark-tertiary mainprofilecontainers">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="#">SocioNode</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -70,13 +70,15 @@
             
           </a>
           <ul class="dropdown-menu">
-            <li><button onclick="clickedEdit('<%=i%>')" class="dropdown-item" class="editbutton" id="bt-<%=i %>">Edit</button></li>
+            <li><button onclick="clickedEdit('<%=i%>','<%= posts[i]._id %>')" class="dropdown-item" class="editbutton" id="bt-<%=i %>">Edit</button></li>
             <li><button class="dropdown-item">archive</button></li>
             <li><button class="dropdown-item">turn off commenting</button></li>
           </ul>
          
         </div>
-        <div class="postcontent"><%= posts[i].content %></div>        </div>
+        <div class="postcontent"><%= posts[i].content %></div>
+        <div class="timeCreated" id="<%= posts[i].createdAt %>"></div> 
+      </div>
         <div class="commentLikediv">
           <div class="likediv">
             <% let likedByUser='likepostbtnno' %>
@@ -95,13 +97,13 @@
               <span>Likes</span>
             <% } %>
           </div>
-          <form method="post" action="/profile/post/comment">
+          <!-- <form method="post" action="/profile/post/comment"> -->
           <div class="commentdiv">
-            <input style="display: none;" name="uid" value= '<%= user.uid %>' >
-            <input style="display: none;" name="id" value= '<%= posts[i]._id%>' >
-            <input name="comment" placeholder="comment" style="text-align: center;" required="true">
-            <button id="commentbutton" type="submit">comment</button>
-          </form>
+            <!-- <input style="display: none;" name="uid" value= '<%= user.uid %>' > -->
+            <!-- <input style="display: none;" name="id" value= '<%= posts[i]._id%>' > -->
+            <input post_id="<%= posts[i]._id%>" name="comment" placeholder="comment" style="text-align: center;" required="true">
+            <button onclick="postComment('<%= posts[i]._id%>')" id="commentbutton" type="submit">comment</button>
+          <!-- </form> -->
           </div>
           <div>
             <button class="commentbutt">comments</button>
@@ -109,16 +111,16 @@
           </div>
           
           <div class="commentcontainer hide">
-            <% for(let j in posts[i].Commenters){ %>
+            <!-- <% for(let j in posts[i].Commenters){ %>
               <div class="commentsectiondivs">
+                <p class="actualcomment second">
+                  <%= posts[i].Commenters[j].author %>:
+                </p>
               <p class="actualcomment first">
                 <%= posts[i].Commenters[j].body %>
               </p>
-              <p class="actualcomment second">
-                <%= posts[i].Commenters[j].author %>
-              </p>
               </div>
-            <% } %>
+            <% } %> -->
           </div>
         </div>
       </div>

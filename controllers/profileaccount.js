@@ -22,8 +22,9 @@ const nodemailer=require('nodemailer')
 module.exports.findprofile=function(req,res){
     //console.log(req.user.name) 
     profilesdb.findOne({_id:req.user.id,password:req.user.password}).then(founduser=>{
-        posts.find({authoruid:founduser.uid}).then(foundposts=>{
-
+        posts.find({authoruid:founduser.uid})
+        .select('-Commenters')
+        .then(foundposts=>{
             return res.render('profiles',{'user':{
                 name:founduser.name,
                 email:founduser.email,
@@ -34,7 +35,7 @@ module.exports.findprofile=function(req,res){
         })
         })
     }).catch(err=>{
-        console.log('an error occured')
+        console.log('an error occured:',err)
         return res.redirect('/user/signin')
 })
 }
@@ -122,9 +123,10 @@ module.exports.editemail=function(req,res){
 
 
 module.exports.editbio=function(req,res){
-
-    console.log("new bio:",req.body.bio);
-    profilesdb.updateOne({uid:req.body.uid},{$set:{bio:req.body.bio}}).then(done=>{
+    let bio=req.body.bio
+    bio=bio.trim()
+    // console.log("new bio:",req.body.bio);
+    profilesdb.updateOne({uid:req.body.uid},{$set:{bio:bio}}).then(done=>{
         req.flash('success','successfully updated Bio')
         console.log('successfully updated')
     }).catch(err=>{
@@ -302,12 +304,14 @@ module.exports.createPost=function(req,res){
     // }else{
     //     imageURL=null
     // }
-    if(!req.body.content && !req.file){
+    let content=req.body.content
+    content=content.trim()
+    if(!content && !req.file){
         req.flash('error',"Post can't be empty")
         return res.redirect('back')
     }
     posts.create({
-        content:req.body.content,
+        content:content,
         author:req.user.name,
         authoruid:req.body.uid,
         image:imageURL
@@ -320,24 +324,21 @@ module.exports.createPost=function(req,res){
     })
 }
 module.exports.createcomment=function(req,res){
-    //console.log(req.body)
-    let comment;
-    let commenters;
-    
+    let comment=req.body.comment
+    comment=comment.trim()
     const newcomment={
-        body:req.body.comment,
+        body:comment,
         author:req.user.name
+    }
+    if(comment==''){
+        return res.status(400).json({message:'comment cannot be empty'})
     }
 
     posts.findById(req.body.id).then(foundpost=>{
         foundpost.Commenters.push(newcomment)
         foundpost.comments+=1;
         return foundpost.save()
-        // comment=foundpost.comments
-        // comment++;
-        // commenters=foundpost.Commenters
-        // commenters.push(newcomment);
-        //console.log(comment,commenters)
+        
     }).then(done=>{
     // posts.updateOne({_id:req.body.id},{$set:{comments:comment,Commenters:commenters}}).then(done=>{
     //     return res.redirect('back');
@@ -345,7 +346,12 @@ module.exports.createcomment=function(req,res){
     //     console.log('error commenting')
     //     return res.redirect('back');
     // })  
-    console.log('done commenting')
+    return res.status(201).json({
+        body:comment,
+        author:req.user.name
+    })
+}).catch(err=>{
+    return res.status(500).json({message:'server side error'})
 })
 }
 module.exports.like=function(req,res){
@@ -428,16 +434,31 @@ module.exports.profilesearch=function(req,res){
 
 
 module.exports.editpostcontent=function(req,res){
+    let newpostcontent=req.body.newpostcontent
+    newpostcontent=newpostcontent.trim()
+    
     if(req.query.uid!=req.user.uid){
         req.flash('error','Please login to continue')
-        return res.redirect('/user/login')
+        return res.status(404).json({message:'please login to continue'})
     }
-    posts.updateOne({authoruid:req.query.uid,_id:req.query.index},{$set:{content:req.body.newpostcontent}}).then(done=>{
+    posts.findOne({authoruid:req.query.uid,_id:req.query.index}).then(foundPost=>{
+        if(!foundPost){
+            return res.status(500).json({message:'error:500'})
+        }
+
+        if(newpostcontent=='' && !foundPost.image){
+            return res.json({message:'post cant be empty'})
+        }
+        foundPost.content=newpostcontent
+        foundPost.save()
+
+        return res.status(201).json({message:'successfully updated'})
         // console.log(done)
+        
     }).catch(err=>{
-        req.flash('error',err);
+        req.flash('error','some error occured');
+        return res.status(500).json({message:'error in finding DataBase'})
     })
-    return res.redirect('back')
 }
 
 module.exports.deletepost=function(req,res){
